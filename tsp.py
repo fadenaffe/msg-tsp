@@ -10,30 +10,30 @@
 #
 #      Description:         Dies ist mein Beitrag zur Coding-Challenge von MSG, wie man sie auf
 #                           https://www.get-in-it.de/coding-challenge (Stand 08.07.2020) finden kann.
-#                           Im Grunde beschreibt es das Traveling Salesman Problem (TSP, auch Briefträgerproblem,
+#                           Im Grunde beschreibt es das Traveling Salesman Problem (TSP, auch Brieftraegerproblem,
 #                           Chinese Postman Problem, Route Inspection Problem, usw), in dem eine bestimmte Anzahl
-#                           an Punkten (n) auf einer Karte "besucht" werden müssen, wobei Start- und Endpunkt immer
-#                           fix sind. Für kleine Werte von n bietet sich eine Methode an, bei der alle möglichen
-#                           Routen (p) ermittelt und deren Gesamtlänge berechnet werden. Da p aber mittels Fakultät
-#                           berechnet wird, wird es mit jedem weiteren Faktor auch sehr schnell sehr groß. Es bietet
+#                           an Punkten (n) auf einer Karte "besucht" werden muessen, wobei Start- und Endpunkt immer
+#                           fix sind. Fuer kleine Werte von n bietet sich eine Methode an, bei der alle moeglichen
+#                           Routen (p) ermittelt und deren Gesamtlaenge berechnet werden. Da p aber mittels Fakultaet
+#                           berechnet wird, wird es mit jedem weiteren Faktor auch sehr schnell sehr grosz. Es bietet
 #                           sich daher als Alternative die "Nearest Neighbor"-Methode an. Hierbei wird eine Tabelle
-#                           mit den Abständen aller Punkte zueinander benötigt, um damit, ausgehend vom Startpunkt,
-#                           immer den kürzesten Abstand zum nächsten Punkt zu wählen. Diese Methode ist natürlich
-#                           nicht die genauste, dafür aber bei größeren n sehr schnell.
+#                           mit den Abstaenden aller Punkte zueinander benoetigt, um damit, ausgehend vom Startpunkt,
+#                           immer den kuerzesten Abstand zum naechsten Punkt zu waehlen. Diese Methode ist natuerlich
+#                           nicht die genauste, dafuer aber bei groeszeren n sehr schnell.
 #
-#                           Und am Ende fährt der Salesman sicher lieber ein paar km mehr, als erstmal mehrere
+#                           Und am Ende faehrt der Salesman sicher lieber ein paar km mehr, als erstmal mehrere
 #                           hundert Jahre auf die Ermittlung der perfekten Route zu warten.
 #
-#                           Es findet eine Ausgabe der Tabelle der Punkte und deren gerundeter Abstände zueinander
-#                           auf dem Bildschirm statt. Außerdem wird eine Datei namens distances.csv ins
-#                           Arbeitsverzeichnis gelegt, die die ungerundeten Werte enthält. Diese Werte sind natürlich
+#                           Es findet eine Ausgabe der Tabelle der Punkte und deren gerundeter Abstaende zueinander
+#                           auf dem Bildschirm statt. Auszerdem wird eine Datei namens distances.csv ins
+#                           Arbeitsverzeichnis gelegt, die die ungerundeten Werte enthaelt. Diese Werte sind natuerlich
 #                           auch die Berechnungsgrundlage.
 #
 #           Notes:          Das Script sollte auf einem UNIX-System mit Python 3 problemlos laufen und mittels
 #                           'python tsp.py' im Verzeichnis aufrufbar sein.
 #                           Ich habe darauf geachtet, nur Module zu benutzen, die in Python 3 enthalten sind, damit
-#                           nichts nachinstalliert werden muss. Sicherlich gibt es Module, die das Problem lösen
-#                           können, aber das sollte wohl nicht der Anspruch sein.
+#                           nichts nachinstalliert werden muss. Sicherlich gibt es Module, die das Problem loesen
+#                           koennen, aber das sollte wohl nicht der Anspruch sein.
 #                           Sollte es doch nicht auf Anhieb funktionieren, klappt es bestimmt mit dem Befehl
 #                           'python3.6 tsp.py'.
 #
@@ -49,7 +49,7 @@ import time
 
 
 def getdistance(pointa, pointb):
-    R = 6371.0 ## Ungefährer Radius der Erde
+    R = 6371.0 ## Ungefaehrer Radius der Erde
 
     #Entfernungen zwsichen den Punkten berechnen
     dlon = radians(pointa["coords"][0]) - radians(pointb["coords"][0])
@@ -63,7 +63,7 @@ def getdistance(pointa, pointb):
     return distance
 
 def printTableCell(maxlen, entry):
-    ## Diese Methode reserviert eigentlich nur Platz für die Tabellenzellen der Bildschirmausgabe, damit alles gleichmäßig aussieht
+    ## Diese Methode reserviert eigentlich nur Platz fuer die Tabellenzellen der Bildschirmausgabe, damit alles gleichmaeszig aussieht
     spacescount = maxlen - len(entry)
     newstring = ''
     for sp in range(0, spacescount):
@@ -73,22 +73,22 @@ def printTableCell(maxlen, entry):
 
 ## Hier sind die Standorte
 arrpoints = {
-    1: {"standort": "Ismaning/München (Hauptsitz)", "coords" : (48.229035, 11.686153)},
+    1: {"standort": "Ismaning/Muenchen (Hauptsitz)", "coords" : (48.229035, 11.686153)},
     2: {"standort": "Berlin", "coords" : (52.580911, 13.293884)},
     3: {"standort": "Braunschweig", "coords" : (52.278748, 10.524797)},
     4: {"standort": "Bretten", "coords" : (49.032767, 8.698372)},
     5: {"standort": "Chemnitz", "coords" : (50.829383, 12.914737)},
-    6: {"standort": "Düsseldorf", "coords" : (51.274774, 6.794912)},
+    6: {"standort": "Duesseldorf", "coords" : (51.274774, 6.794912)},
     7: {"standort": "Essen", "coords" : (51.450577, 7.008871)},
     8: {"standort": "Frankfurt", "coords" : (50.136479, 8.570963)},
-    9: {"standort": "Görlitz", "coords" : (51.145511, 14.970028)},
+    9: {"standort": "Goerlitz", "coords" : (51.145511, 14.970028)},
     10: {"standort": "Hamburg", "coords" : (53.557577, 9.986065)},
     11: {"standort": "Hannover", "coords" : (52.337987, 9.769706)},
     12: {"standort": "Ingolstadt", "coords" : (48.784417, 11.399106)},
-    13: {"standort": "Köln/Hürth", "coords" : (50.886726, 6.913119)},
+    13: {"standort": "Koeln/Huerth", "coords" : (50.886726, 6.913119)},
     14: {"standort": "Lingen (Ems)", "coords" : (52.519154, 7.322185)},
-    15: {"standort": "Münster", "coords" : (51.969304, 7.61428)},
-    16: {"standort": "Nürnberg", "coords" : (49.429596, 11.017404)},
+    15: {"standort": "Muenster", "coords" : (51.969304, 7.61428)},
+    16: {"standort": "Nuernberg", "coords" : (49.429596, 11.017404)},
     17: {"standort": "Passau", "coords" : (48.571989, 13.453256)},
     18: {"standort": "Schortens/Wilhelmshaven", "coords" : (53.537779, 7.936809)},
     19: {"standort": "St. Georgen", "coords" : (48.126258, 8.325873)},
@@ -102,7 +102,7 @@ arrpoints = {
 ##
 #############################################################################################################
 
-lenSpalte = 8 ## Gibt an, wie breit eine Spalte für die Bildschirmausgabe maximal sein darf
+lenSpalte = 8 ## Gibt an, wie breit eine Spalte fuer die Bildschirmausgabe maximal sein darf
 
 
 ## Es wird ein Array distanceArr Arr gebildet mit dem Startort als key
@@ -135,17 +135,17 @@ for ids, start in enumerate(distanceArr):
 with open('distances.csv', 'w', newline='') as file:
     writer = csv.writer(file, distanceArr.keys())
     ## Ab hier wird der Tabellenkopf in die CSV geschrieben
-    row = [""] ## Erste Spalte muss natürlich leer sein
+    row = [""] ## Erste Spalte muss natuerlich leer sein
     for standort in distanceArr.keys():
-        row.append(arrpoints[standort]["standort"]) ## Ich übersetze die Nummern in die Namen der Standorte anhand des ursprünglichen Arrays
+        row.append(arrpoints[standort]["standort"]) ## Ich uebersetze die Nummern in die Namen der Standorte anhand des urspruenglichen Arrays
     writer.writerow(row)
 
 
-    ## Ab hier schreibe ich den Tabelleninhalt in die CSV, ganz ähnlich wie bei der Ausgabe, nur mit Übersetzung der Nummern in die Namen der Standorte
+    ## Ab hier schreibe ich den Tabelleninhalt in die CSV, ganz aehnlich wie bei der Ausgabe, nur mit uebersetzung der Nummern in die Namen der Standorte
     for ids, start in enumerate(distanceArr):
         row = [] ## Erstmal leeren
-        row.append(arrpoints[start]["standort"]) ## Hier wird die erste Spalte befüllt
-        ## Ab hier werden die Entfernungen eingefügt
+        row.append(arrpoints[start]["standort"]) ## Hier wird die erste Spalte befuellt
+        ## Ab hier werden die Entfernungen eingefuegt
         for dest in distanceArr[start]:
             row.append(distanceArr[start][dest])
         writer.writerow(row)
@@ -164,18 +164,18 @@ print()
 
 #############################################################################################################
 ##
-## 2. Ermittlung der kürzesten Route mit allen Standorten
+## 2. Ermittlung der kuerzesten Route mit allen Standorten
 ##
 #############################################################################################################
 
 ##Den Startpunkt kurz zwischenspeichern
 startpoint = arrpoints[1]
 
-## Erstmal alle möglichen Routen ermitteln, dazu aber den Hauptsitz erstmal entfernen
+## Erstmal alle moeglichen Routen ermitteln, dazu aber den Hauptsitz erstmal entfernen
 del arrpoints[1]
 
 
-## Hier wird die Anzahl aller möglichen Routen berechnet
+## Hier wird die Anzahl aller moeglichen Routen berechnet
 sum = 1
 for x in range(len(arrpoints)):
     sum = (x+1) * sum
@@ -183,7 +183,7 @@ for x in range(len(arrpoints)):
 print("There are", sum, "possible routes with", startpoint["standort"], "as start and end and I computed", end=" ")
 
 
-## Ab hier werden die Entfernungen aller möglichen Routen berechnet und verglichen, um das TSP zu lösen
+## Ab hier werden die Entfernungen aller moeglichen Routen berechnet und verglichen, um das TSP zu loesen
 shortestdistance = 0
 counter = 0
 nearest_neighbor = False
@@ -192,8 +192,8 @@ for permut in itertools.permutations(arrpoints, len(arrpoints)):
     counter = counter + 1
 
     ## der Ganze If-Block schaut nach, wie lange die ersten 100000 Routen berechnet wurden und stellt eine Prognose auf
-    ## wie lange die Berechnung des Rests dauern würde. Dauert es länger als eine halbe Stunde, wird abgebrochen und die
-    ## Nearest Neighbor Methode gewählt. Das ist meist der Fall bei ca. mehr als 12 Standorten (auf dem Entwicklungssystem)
+    ## wie lange die Berechnung des Rests dauern wuerde. Dauert es laenger als eine halbe Stunde, wird abgebrochen und die
+    ## Nearest Neighbor Methode gewaehlt. Das ist meist der Fall bei ca. mehr als 12 Standorten (auf dem Entwicklungssystem)
     if counter == 100000:
         endttime = time.time()
         prognose = endttime - starttime
@@ -214,14 +214,14 @@ for permut in itertools.permutations(arrpoints, len(arrpoints)):
         start = dest
     temp_distance = temp_distance + distanceArr[start][1]
     ## Und falls die ermittelte Entfernung kleiner ist, als die vorherige (oder falls diev vorherige 0 ist)
-    ## Ist das unsere neuste kürzste Distanz
+    ## Ist das unsere neuste kuerzste Distanz
     if temp_distance < shortestdistance or shortestdistance == 0:
         shortestdistance =  temp_distance
         route = permut
 
 
 if nearest_neighbor == True:
-    ## Die "Nearest Neighbor"-Methode ermittelt aus der Tabelle mit den Distanzen ausgehend vom Sartpunkt aus immer die kürzste Distanz.
+    ## Die "Nearest Neighbor"-Methode ermittelt aus der Tabelle mit den Distanzen ausgehend vom Sartpunkt aus immer die kuerzste Distanz.
     ## Es ist nicht perfekt, aber sehr brauchbar
     print() ## Leerzeile schadet nie
     start = 1
@@ -240,7 +240,7 @@ if nearest_neighbor == True:
         start = temp_dest
         route.append(temp_dest)
 
-    ## Und zurück nach Hause
+    ## Und zurueck nach Hause
     shortestdistance = shortestdistance + distanceArr[start][1]
     route.append(1)
 
@@ -249,8 +249,8 @@ if nearest_neighbor == True:
 print("Shortest distance is", shortestdistance, "km via: ")
 
 count = 0
-## Hier kommt die Ausgabe mit Übersetzung der Nummern in die Namen der Standorte
-## der erste if-elif-else-Block hübscht das alles ein bisschen auf
+## Hier kommt die Ausgabe mit uebersetzung der Nummern in die Namen der Standorte
+## der erste if-elif-else-Block huebscht das alles ein bisschen auf
 for point in route:
     count = count + 1
     if count % 5 == 0:
